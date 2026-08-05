@@ -14,7 +14,16 @@ async function init() {
         database = data.regions;
         
         // Extract unique categories and populate dropdown
-        const categories = [...new Set(database.map(item => item.category || 'Uncategorized'))].sort();
+        const allCats = new Set();
+        database.forEach(item => {
+            if (item.categories && item.categories.length > 0) {
+                item.categories.forEach(c => allCats.add(c));
+            } else {
+                allCats.add('Uncategorized');
+            }
+        });
+        
+        const categories = [...allCats].sort();
         categories.forEach(cat => {
             const option = document.createElement('option');
             option.value = cat;
@@ -91,8 +100,9 @@ function applyFilters() {
         const matchesSearch = item.id.toLowerCase().includes(query) || 
                               item.title.toLowerCase().includes(query) ||
                               (item.description && item.description.toLowerCase().includes(query));
-        const itemCat = item.category || 'Uncategorized';
-        const matchesCategory = selectedCategory === 'all' || itemCat === selectedCategory;
+        
+        const itemCats = item.categories && item.categories.length > 0 ? item.categories : ['Uncategorized'];
+        const matchesCategory = selectedCategory === 'all' || itemCats.includes(selectedCategory);
         
         return matchesSearch && matchesCategory;
     });
