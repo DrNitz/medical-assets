@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nnotes Medical Reference</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>Nnotes Medical Reference</h1>
+            <p>High-resolution anatomical references and legends for your stickers.</p>
+            <div class="search-container">
+                <select id="categoryFilter" class="category-select">
+                    <option value="all">All Categories</option>
+                    <!-- JavaScript will populate categories -->
+                </select>
+                <input type="text" id="searchInput" placeholder="Search anatomy (e.g., 'heart', '212-2')">
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- The gallery view -->
+        <section id="galleryView">
+            <div class="grid" id="regionGrid">
+                <!-- Javascript will populate this -->
+                <div class="loading">Loading database...</div>
+            </div>
+        </section>
+
+        <!-- The detail view -->
+        <section id="detailView" class="hidden">
+            <button id="backBtn" class="btn">← Back to Gallery</button>
+            <div class="detail-container">
+                <div class="detail-header">
+                    <h2 id="detailTitle">Title</h2>
+                    <p id="detailDescription">Description</p>
+                </div>
+                
+                <div class="detail-content">
+                    <div class="image-panel">
+                        <h3>Cadaver View</h3>
+                        <img id="cadaverImg" src="" alt="Cadaver">
+                    </div>
+                    <div class="image-panel">
+                        <h3>Diagram View</h3>
+                        <img id="diagramImg" src="" alt="Diagram">
+                    </div>
+                    <div class="legend-panel">
+                        <h3>Legend</h3>
+                        <ol id="legendList">
+                            <!-- Javascript will populate this -->
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
