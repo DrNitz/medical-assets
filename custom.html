@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Medical Images - Dr. Nitz</title>
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --surface-color: rgba(30, 41, 59, 0.7);
+            --surface-border: rgba(255, 255, 255, 0.1);
+            --text-main: #f8fafc;
+            --text-dim: #94a3b8;
+            --accent: #3b82f6;
+            --accent-hover: #2563eb;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(59, 130, 246, 0.15), transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(147, 51, 234, 0.15), transparent 25%);
+            background-attachment: fixed;
+            font-family: 'Inter', sans-serif;
+            color: var(--text-main);
+            min-height: 100vh;
+        }
+
+        /* Glassmorphism Header */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--surface-border);
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .back-btn {
+            color: var(--text-dim);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+
+        .back-btn:hover {
+            color: var(--text-main);
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, #60a5fa, #c084fc);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Search Bar */
+        .search-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .search-container input {
+            width: 100%;
+            padding: 10px 20px;
+            border-radius: 20px;
+            background: var(--surface-color);
+            border: 1px solid var(--surface-border);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            outline: none;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        .search-container input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+        }
+
+        /* Masonry Grid */
+        main {
+            padding: 40px;
+        }
+
+        .grid {
+            column-count: 2;
+            column-gap: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .grid { column-count: 3; }
+        }
+
+        @media (min-width: 1024px) {
+            .grid { column-count: 4; }
+        }
+
+        @media (min-width: 1440px) {
+            .grid { column-count: 5; }
+        }
+
+        /* Image Cards */
+        .card {
+            background: var(--surface-color);
+            border: 1px solid var(--surface-border);
+            border-radius: 16px;
+            padding: 15px;
+            margin-bottom: 20px;
+            break-inside: avoid;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            border-color: rgba(255,255,255,0.2);
+        }
+
+        .card img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            object-fit: contain;
+            background: rgba(0,0,0,0.2);
+        }
+
+        .card-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .card-title {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .card-tags {
+            font-size: 0.8rem;
+            color: var(--accent);
+        }
+
+        /* Loader */
+        .loader {
+            text-align: center;
+            padding: 50px;
+            color: var(--text-dim);
+            font-size: 1.1rem;
+        }
+
+        .error {
+            color: #ef4444;
+            text-align: center;
+            padding: 50px;
+        }
+
+        /* Download Button Overlay */
+        .card-image-wrapper {
+            position: relative;
+        }
+        
+        .download-btn {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(4px);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.2s ease, background 0.2s ease;
+            text-decoration: none;
+        }
+
+        .card:hover .download-btn {
+            opacity: 1;
+        }
+
+        .download-btn:hover {
+            background: var(--accent);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-left">
+            <a href="index.html" class="back-btn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"></path><polyline points="12 19 5 12 12 5"></polyline></svg>
+                Back
+            </a>
+            <h1>Custom Medical Images</h1>
+        </div>
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search custom images...">
+        </div>
+    </header>
+
+    <main>
+        <div id="loader" class="loader">Loading custom images...</div>
+        <div id="grid" class="grid"></div>
+    </main>
+
+    <script>
+        // Fetch from the local folder or GitHub raw (depending on where it's hosted)
+        const API_URL = "custom_med_data.json";
+        
+        let allItems = [];
+        let searchQuery = '';
+
+        const grid = document.getElementById('grid');
+        const loader = document.getElementById('loader');
+        const searchInput = document.getElementById('searchInput');
+
+        async function init() {
+            try {
+                const res = await fetch(API_URL);
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data.categories && data.categories.length > 0 && data.categories[0].images) {
+                        allItems = data.categories[0].images;
+                    }
+                    loader.style.display = 'none';
+                    updateUI();
+                } else {
+                    throw new Error("JSON not found");
+                }
+            } catch (err) {
+                loader.innerHTML = `<div class="error">No custom images found. Please ensure you have generated custom_med_data.json via GitHub Actions.</div>`;
+            }
+        }
+
+        function updateUI() {
+            let filtered = allItems;
+            
+            if (searchQuery) {
+                const q = searchQuery.toLowerCase();
+                filtered = filtered.filter(item => 
+                    item.title.toLowerCase().includes(q) || 
+                    (item.tags && item.tags.some(tag => tag.toLowerCase().includes(q)))
+                );
+            }
+
+            renderGrid(filtered);
+        }
+
+        function renderGrid(items) {
+            if (items.length === 0) {
+                grid.innerHTML = `<div class="loader">No images match your search.</div>`;
+                return;
+            }
+
+            let html = '';
+            items.forEach(item => {
+                const ext = item.url.split('.').pop().toLowerCase();
+                const formatLabel = ext === 'svg' ? 'SVG Vector' : (ext === 'gif' ? 'GIF Animation' : ext.toUpperCase());
+
+                html += `
+                    <div class="card" onclick="window.open('${item.url}', '_blank')">
+                        <div class="card-image-wrapper">
+                            <img src="${item.url}" alt="${item.title}" loading="lazy">
+                            <a href="${item.url}" download class="download-btn" title="Download">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                            </a>
+                        </div>
+                        <div class="card-info">
+                            <div class="card-title">${item.title}</div>
+                            <div class="card-tags">#${formatLabel}</div>
+                        </div>
+                    </div>
+                `;
+            });
+            grid.innerHTML = html;
+        }
+
+        searchInput.addEventListener('input', (e) => {
+            searchQuery = e.target.value.trim();
+            updateUI();
+        });
+
+        init();
+    </script>
+</body>
+</html>
