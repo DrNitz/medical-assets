@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://drnitz.github.io/medical-assets/sitemap.xml

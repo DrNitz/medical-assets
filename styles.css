@@ -15,6 +15,49 @@ body {
     color: var(--text-color);
 }
 
+.top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: var(--bg-color);
+    border-bottom: 1px solid var(--border);
+}
+
+.nav-brand {
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--accent);
+}
+
+.nav-links a {
+    color: var(--text-dim);
+    text-decoration: none;
+    margin-left: 1.5rem;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.nav-links a:hover, .nav-links a.active {
+    color: var(--text-color);
+}
+
+.footer-nav {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.footer-nav a {
+    color: var(--text-dim);
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+.footer-nav a:hover {
+    color: var(--text-color);
+    text-decoration: underline;
+}
+
 header {
     background-color: var(--surface-color);
     padding: 2rem;
