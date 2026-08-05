@@ -1,0 +1,27 @@
+{
+  "categories": [
+    {
+      "name": "Everyday Objects",
+      "images": [
+        {
+          "id": "coffee-1",
+          "title": "Coffee Cup",
+          "tags": ["coffee", "cup", "drink", "morning"],
+          "url": "https://upload.wikimedia.org/wikipedia/commons/4/45/A_small_cup_of_coffee.JPG"
+        },
+        {
+          "id": "book-1",
+          "title": "Open Book",
+          "tags": ["book", "reading", "study", "education"],
+          "url": "https://upload.wikimedia.org/wikipedia/commons/b/b5/Open_book_na_knihe_1.jpg"
+        },
+        {
+          "id": "airplane-1",
+          "title": "Airplane",
+          "tags": ["airplane", "flight", "travel", "plane"],
+          "url": "https://upload.wikimedia.org/wikipedia/commons/f/fa/Boeing_737-800_transavia.jpg"
+        }
+      ]
+    }
+  ]
+}
