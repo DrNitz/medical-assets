@@ -2,7 +2,18 @@
   "categories": [
     {
       "name": "Custom Images",
-      "images": []
+      "images": [
+        {
+          "id": "custom_Heart labeled",
+          "title": "Heart Labeled",
+          "tags": [
+            "heart",
+            "labeled"
+          ],
+          "url": "https://raw.githubusercontent.com/DrNitz/medical-assets/main/Med_img/Heart labeled.png",
+          "category": "Custom Images"
+        }
+      ]
     }
   ]
 }
